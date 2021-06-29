@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">ISOOnline</string>
+    <string name="text_user">Tài khoản</string>
+    <string name="text_pass">Mật khẩu</string>
+    <string name="text_id_das">Mã IDas</string>
+    <string name="text_key">1 + 5</string>
+
+    <string name="top_icon">TOP ICON</string>
+    <string name="user">User</string>
+    <string name="password">Password</string>
+    <string name="id_idas">ID IDas</string>
+    <string name="login">LOGIN</string>
+    <string name="forgot_password">FORGOT PASSWORD?</string>
+    <string name="or">OR</string>
+    <string name="google_icon">google icon</string>
+    <string name="facebook_icon">facebook icon</string>
+    <string name="new_user_register_now">New User? Register Now</string>
+    <string name="text_trouble">Trouble</string>
+    <string name="list_trouble">Danh sách sự cố</string>
+    <string name="title_tab_report">"Báo cáo"</string>
+</resources>
