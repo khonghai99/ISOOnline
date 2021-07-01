@@ -66,9 +66,9 @@ public class TroubleAdapter extends RecyclerView.Adapter<TroubleAdapter.TroubleV
         if (trouble == null){
             return;
         }
-        holder.mTextNameTrouble.setText(trouble.getNameTrouble());
-        holder.mTextLevel.setText(trouble.getLevel());
-        holder.mTextDate.setText(trouble.getDate());
+        holder.mTextNameTrouble.setText(trouble.getName());
+        holder.mTextLevel.setText(trouble.getProblemEmergencyName());
+        holder.mTextDate.setText(trouble.getCreatedAt());
     }
 
     @Override

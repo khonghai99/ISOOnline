@@ -22,12 +22,18 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bkav.isoonline.R;
+import com.bkav.isoonline.Session.Golobal;
 import com.bkav.isoonline.activities.MainActivity;
 import com.bkav.isoonline.activities.ViewDetailActivity;
 import com.bkav.isoonline.adapters.TroubleAdapter;
 import com.bkav.isoonline.models.Trouble;
+import com.bkav.isoonline.models.TroubleModel;
+import com.bkav.isoonline.models.User;
+import com.bkav.isoonline.models.UserModel;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -76,29 +82,86 @@ public class ListTroubleFragment extends Fragment implements TroubleAdapter.OnCl
         });
 
         mRecyclerViewTrouble = view.findViewById(R.id.recycler_list_trouble);
-        mTroubleAdapter = new TroubleAdapter(getListTrouble(), this);
+        try {
+            mTroubleAdapter = new TroubleAdapter(getListTrouble(), this);
+        } catch (SQLException | ParseException throwables) {
+            throwables.printStackTrace();
+        }
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         mRecyclerViewTrouble.setLayoutManager(linearLayoutManager);
-        setAnimation(R.anim.left_to_right);
+        try {
+            setAnimation(R.anim.left_to_right);
+        } catch (SQLException | ParseException throwables) {
+            throwables.printStackTrace();
+        }
         Log.i("HaiKH", "onCreateView: 1");
         return view;
     }
     
-    private List<Trouble> getListTrouble() {
-        List<Trouble> troubles = new ArrayList<>();
-        troubles.add(new Trouble("trouble 1", "1", "1/1/2000"));
-        troubles.add(new Trouble("trouble 2", "2", "2/1/2000"));
-        troubles.add(new Trouble("trouble 3", "3", "3/1/2000"));
-        troubles.add(new Trouble("trouble 4", "4", "4/1/2000"));
-        troubles.add(new Trouble("trouble 5", "1", "4/1/2000"));
-        troubles.add(new Trouble("trouble 6", "1", "4/1/2000"));
-        troubles.add(new Trouble("trouble 7", "2", "4/1/2000"));
-        troubles.add(new Trouble("trouble 8", "4", "4/1/2000"));
-        troubles.add(new Trouble("trouble 9", "4", "4/1/2000"));
-        troubles.add(new Trouble("trouble 10", "4", "4/1/2000"));
-        return troubles;
+    private List<Trouble> getListTrouble() throws SQLException, ParseException {
+        String query = "select DISTINCT  p.ID\n" +
+                "      ,p.Code\n" +
+                "      ,p.Name\n" +
+                "      ,p.EmergencyTypeID\n" +
+                "\t  ,e.ProblemEmergencyName\n" +
+                "      ,p.ProblemTypeID\n" +
+                "\t  ,t.ProblemTypeName\n" +
+                "      ,p.CriticalLevelID\n" +
+                "\t  ,p.Name as CriticalLevelName\n" +
+                "      ,p.ProblemGroupID\n" +
+                "\t  ,g.ProblemGroupName\n" +
+                "      ,OccuredDate\n" +
+                "      ,ResolvedDate\n" +
+                "      ,p.Description\n" +
+                "      ,[Reason]\n" +
+                "      ,[Propose]\n" +
+                "      ,[Solution]\n" +
+                "      ,[Result]\n" +
+                "      ,[StatusID]\n" +
+                "\t  ,s.ProblemStatusName\n" +
+                "      ,p.CreatedAt\n" +
+                "      ,p.CreatedBy\n" +
+                "      ,p.UpdatedAt\n" +
+                "      ,p.UpdatedBy\n" +
+                "      ,p.IsProblemOrEvent\n" +
+                "      ,p.IsDelete\n" +
+                "      ,[Reporter]\n" +
+                "      ,p.ContactNumber\n" +
+                "      ,p.ReporterEmail\n" +
+                "      ,p.ReporterDepartment\n" +
+                "      ,p.Receiver\n" +
+                "      ,p.IsTemplate\n" +
+                "      ,p.RequestDepID\n" +
+                "\t  ,rd.Name as RequestDepName\n" +
+                "      ,p.ResidentAgencyID\n" +
+                "\t  ,r.Name as ResidentAgencyName\n" +
+                "      ,p.ResidentAgencyGroupID\n" +
+                "\t  ,rp.Name as ResidentAgencyGroupName\n" +
+                "      ,[YourselfFix]\n" +
+                "      ,[OnDuty]\n" +
+                "      ,[ReceiverDepID]\n" +
+                "      ,[lng]\n" +
+                "      ,[lat] \n" +
+                "from V3ProblemEvent as p\n" +
+                "left join V3ProblemEventUser as u on  u.ProblemEventID = p.ID\n" +
+                "left join V3ProblemType as t on p.ProblemTypeID = t.ID\n" +
+                "left join V3ProblemStatus as s on p.StatusID = s.ID\n" +
+                "left join V3ProblemEmergency as e on p.EmergencyTypeID = e.ID\n" +
+                "left join V3ProblemCriticalLevel as c on p.CriticalLevelID = c.ID\n" +
+                "left join V3ProblemGroup as g on p.ProblemGroupID = g.ID\n" +
+                "left join V3ProblemResidentAgency as r on p.ResidentAgencyID = r.ID\n" +
+                "left join V3ProblemResidentAgencyGroup as rp on p.ResidentAgencyGroupID = rp.ID\n" +
+                "left join V3ProblemEventRequestDep as rd on p.RequestDepID = rd.ID\n" +
+                "where \n" +
+                "(u.HumanEmployeeID = " + Golobal.getIdUser() +" or p.Receiver = " + Golobal.getIdUser() +")\n" +
+                "and (p.IsDelete = 0 or p.IsDelete is null)";
+
+        TroubleModel model = new TroubleModel();
+        List<Trouble> lst = new ArrayList<>();
+                lst = model.getTroublelist(query);
+        return lst;
     }
-    private void setAnimation(int animResource){
+    private void setAnimation(int animResource) throws SQLException, ParseException {
 //        LayoutAnimationController layoutAnimationController = AnimationUtils.loadLayoutAnimation(this, animResource);
 //        mRecyclerViewTrouble.setLayoutAnimation(layoutAnimationController);
         mRecyclerViewTrouble.addItemDecoration(new DividerItemDecoration(getContext(),
