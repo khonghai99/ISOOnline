@@ -29,7 +29,7 @@ public class Trouble {
     private int UpdatedBy;
     private boolean IsProblemOrEvent;
     private boolean IsDelete;
-    private int Reporter;
+    private String Reporter;
     private String ContactNumber;
     private String ReporterEmail;
     private String ReporterDepartment;
@@ -258,11 +258,11 @@ public class Trouble {
         IsDelete = delete;
     }
 
-    public int getReporter() {
+    public String getReporter() {
         return Reporter;
     }
 
-    public void setReporter(int reporter) {
+    public void setReporter(String reporter) {
         Reporter = reporter;
     }
 
@@ -427,5 +427,18 @@ public class Trouble {
         CreatedAt = createdAt;
     }
 
-
+    public Trouble(String name, String problemEmergencyName, String problemTypeName, String criticalLevelName, String problemGroupName, String description, String createdAt, String reporter, String contactNumber, String reporterEmail, String receiver, String residentAgencyName) {
+        Name = name;
+        ProblemEmergencyName = problemEmergencyName;
+        ProblemTypeName = problemTypeName;
+        CriticalLevelName = criticalLevelName;
+        ProblemGroupName = problemGroupName;
+        Description = description;
+        CreatedAt = createdAt;
+        Reporter = reporter;
+        ContactNumber = contactNumber;
+        ReporterEmail = reporterEmail;
+        Receiver = receiver;
+        ResidentAgencyName = residentAgencyName;
+    }
 }

@@ -177,6 +177,7 @@
                     android:textSize="16sp" />
 
                 <EditText
+                    android:id="@+id/edit_text_3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="16sp" />
@@ -194,6 +195,7 @@
                     android:textSize="16sp" />
 
                 <EditText
+                    android:id="@+id/edit_text_4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="16sp" />
@@ -203,20 +205,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Đơn vị: "
-                    android:textSize="16sp" />
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="16sp" />
-
-            </LinearLayout>
+                android:orientation="horizontal"/>
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -226,13 +215,14 @@
                 android:hint="Mô tả">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_text_5"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="146dp"
                     android:gravity="top"
                     android:inputType="textMultiLine"
-                    android:text="3 con át"
                     android:lines="3"
-                    android:overScrollMode="always" />
+                    android:overScrollMode="always"
+                    android:text="3 con át" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <LinearLayout
@@ -247,6 +237,7 @@
                     android:textSize="16sp" />
 
                 <EditText
+                    android:id="@+id/edit_text_6"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="16sp" />

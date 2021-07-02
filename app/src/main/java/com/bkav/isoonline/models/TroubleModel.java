@@ -33,6 +33,54 @@ public class TroubleModel {
                 dateCreate = date1[2] + "/" + date1[1] + "/" + date1[0];
             }
             list.add(new Trouble(rs.getString("Name"),rs.getString("ProblemEmergencyName"),dateCreate));
+            //list.add(new Trouble(rs.getString("Name"),rs.getString("ProblemEmergencyName"),rs.getString("ProblemTypeName"),rs.getString("CriticalLevelName"),rs.getString("ProblemGroupName"),rs.getString("Description"),dateCreate,rs.getInt("Reporter"),rs.getString("ContactNumber"),rs.getString("ReporterEmail"),rs.getString("Receiver"),rs.getString("ResidentAgencyName")));
+
+        }
+        connection.close();
+        return list;
+    }
+    public List<Trouble> getTroubleBundlelist() throws SQLException, ParseException {
+
+        String sql = "select DISTINCT\n" +
+                "      p.Name\n" +
+                "\t  ,e.ProblemEmergencyName\n" +
+                "\t  ,t.ProblemTypeName\n" +
+                "\t  ,c.CriticalLevelName as CriticalLevelName\n" +
+                "\t  ,g.ProblemGroupName\n" +
+                "      ,p.Description\n" +
+                "\t  ,s.ProblemStatusName\n" +
+                "      ,p.CreatedAt\n" +
+                "      ,[Reporter]\n" +
+                "      ,p.ContactNumber\n" +
+                "      ,p.ReporterEmail\n" +
+                "      ,p.Receiver\n" +
+                "\t  ,r.Name as ResidentAgencyName\n" +
+                "from V3ProblemEvent as p\n" +
+                "left join V3ProblemEventUser as u on  u.ProblemEventID = p.ID\n" +
+                "left join V3ProblemType as t on p.ProblemTypeID = t.ID\n" +
+                "left join V3ProblemStatus as s on p.StatusID = s.ID\n" +
+                "left join V3ProblemEmergency as e on p.EmergencyTypeID = e.ID\n" +
+                "left join V3ProblemCriticalLevel as c on p.CriticalLevelID = c.ID\n" +
+                "left join V3ProblemGroup as g on p.ProblemGroupID = g.ID\n" +
+                "left join V3ProblemResidentAgency as r on p.ResidentAgencyID = r.ID\n" +
+                "where \n" +
+                "(u.HumanEmployeeID = 1 or p.Receiver = 1)\n" +
+                "and (p.IsDelete = 0 or p.IsDelete is null)";
+
+        List<Trouble> list = new ArrayList<>();
+        Statement statement = connection.createStatement();
+
+        ResultSet rs = statement.executeQuery(sql);
+        while (rs.next()) {
+            String dateCreate = "";
+            if(rs.getString("CreatedAt") != "") {
+                String[] date = rs.getString("CreatedAt").split(" ");
+                String[] date1 = date[0].split("-");
+                dateCreate = date1[2] + "/" + date1[1] + "/" + date1[0];
+            }
+            //list.add(new Trouble(rs.getString("Name"),rs.getString("ProblemEmergencyName"),dateCreate));
+            list.add(new Trouble(rs.getString("Name"),rs.getString("ProblemEmergencyName"),rs.getString("ProblemTypeName"),rs.getString("CriticalLevelName"),rs.getString("ProblemGroupName"),rs.getString("Description"),dateCreate,rs.getString("Reporter"),rs.getString("ContactNumber"),rs.getString("ReporterEmail"),rs.getString("Receiver"),rs.getString("ResidentAgencyName")));
+
         }
         connection.close();
         return list;

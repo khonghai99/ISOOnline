@@ -43,6 +43,8 @@ public class ListTroubleFragment extends Fragment implements TroubleAdapter.OnCl
 
     private RecyclerView mRecyclerViewTrouble;
     private TroubleAdapter mTroubleAdapter;
+    List<Trouble> lst;
+    List<Trouble> lstBundle;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -50,11 +52,18 @@ public class ListTroubleFragment extends Fragment implements TroubleAdapter.OnCl
         mLayoutTrouble = (TextInputLayout) view.findViewById(R.id.text_input_layout);
         mDropdownTrouble = (AutoCompleteTextView) view.findViewById(R.id.dropdown_text);
 
+        lst = new ArrayList<>();
+        try {
+            lstBundle = getListTroubleBundle();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
         String[] items = new String[]{
-                "Item 1",
-                "Item 2",
-                "Item 3",
-                "Others"
+                "Danh sách sự cố",
+                "Danh sách sự cố sắp tới"
         };
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
@@ -157,9 +166,14 @@ public class ListTroubleFragment extends Fragment implements TroubleAdapter.OnCl
                 "and (p.IsDelete = 0 or p.IsDelete is null)";
 
         TroubleModel model = new TroubleModel();
-        List<Trouble> lst = new ArrayList<>();
                 lst = model.getTroublelist(query);
         return lst;
+    }
+    private List<Trouble> getListTroubleBundle() throws SQLException, ParseException {
+        List<Trouble> list = new ArrayList<>();
+        TroubleModel model = new TroubleModel();
+                list = model.getTroubleBundlelist();
+        return list;
     }
     private void setAnimation(int animResource) throws SQLException, ParseException {
 //        LayoutAnimationController layoutAnimationController = AnimationUtils.loadLayoutAnimation(this, animResource);
@@ -171,11 +185,27 @@ public class ListTroubleFragment extends Fragment implements TroubleAdapter.OnCl
     }
     @Override
     public void onClickTrouble(int position) {
-        openViewDetailFragment();
+
+        openViewDetailFragment(position);
 //        startActivity(new Intent(this, DetailsTrouble.class));
     }
 
-    private void openViewDetailFragment() {
-        startActivity(new Intent(getActivity(), ViewDetailActivity.class));
+    private void openViewDetailFragment(int position) {
+        int id = lst.get(position).getID();
+        Intent intent = new Intent(getActivity(), ViewDetailActivity.class);
+        intent.putExtra("ID", id);
+        intent.putExtra("Name", lstBundle.get(position).getName());
+        intent.putExtra("ProblemEmergencyName", lstBundle.get(position).getProblemEmergencyName());
+        intent.putExtra("ProblemTypeName", lstBundle.get(position).getProblemTypeName());
+        intent.putExtra("CriticalLevelName", lstBundle.get(position).getCriticalLevelName());
+        intent.putExtra("ProblemGroupName", lstBundle.get(position).getProblemGroupName());
+        intent.putExtra("CreatedAt", lstBundle.get(position).getCreatedAt());
+        intent.putExtra("Description", lstBundle.get(position).getDescription());
+        intent.putExtra("Reporter", lstBundle.get(position).getReporter());
+        intent.putExtra("ContactNumber", lstBundle.get(position).getContactNumber());
+        intent.putExtra("ReporterEmail", lstBundle.get(position).getReporterEmail());
+        intent.putExtra("Receiver", lstBundle.get(position).getReceiver());
+        intent.putExtra("ResidentAgencyName", lstBundle.get(position).getResidentAgencyName());
+        startActivity(intent);
     }
 }
