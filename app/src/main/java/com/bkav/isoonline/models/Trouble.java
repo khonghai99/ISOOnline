@@ -427,7 +427,7 @@ public class Trouble {
         CreatedAt = createdAt;
     }
 
-    public Trouble(String name, String problemEmergencyName, String problemTypeName, String criticalLevelName, String problemGroupName, String description, String createdAt, String reporter, String contactNumber, String reporterEmail, String receiver, String residentAgencyName) {
+    public Trouble(String name, String problemEmergencyName, String problemTypeName, String criticalLevelName, String problemGroupName, String description, String createdAt, String reporter, String contactNumber, String reporterEmail, String receiver, String residentAgencyName,String statusName) {
         Name = name;
         ProblemEmergencyName = problemEmergencyName;
         ProblemTypeName = problemTypeName;
@@ -440,5 +440,6 @@ public class Trouble {
         ReporterEmail = reporterEmail;
         Receiver = receiver;
         ResidentAgencyName = residentAgencyName;
+        ProblemStatusName = statusName;
     }
 }

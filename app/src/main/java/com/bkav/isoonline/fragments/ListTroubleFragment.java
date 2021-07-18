@@ -164,7 +164,7 @@ public class ListTroubleFragment extends Fragment implements TroubleAdapter.OnCl
                 "where \n" +
                 "(u.HumanEmployeeID = " + Golobal.getIdUser() +" or p.Receiver = " + Golobal.getIdUser() +")\n" +
                 "and (p.IsDelete = 0 or p.IsDelete is null)";
-
+        int a = Golobal.getIdUser();
         TroubleModel model = new TroubleModel();
                 lst = model.getTroublelist(query);
         return lst;
@@ -206,6 +206,9 @@ public class ListTroubleFragment extends Fragment implements TroubleAdapter.OnCl
         intent.putExtra("ReporterEmail", lstBundle.get(position).getReporterEmail());
         intent.putExtra("Receiver", lstBundle.get(position).getReceiver());
         intent.putExtra("ResidentAgencyName", lstBundle.get(position).getResidentAgencyName());
+        Golobal.setReason(lstBundle.get(position).getReason());
+        Golobal.setSolution( lstBundle.get(position).getSolution());
+        Golobal.setStatus(lstBundle.get(position).getProblemStatusName());
         startActivity(intent);
     }
 }

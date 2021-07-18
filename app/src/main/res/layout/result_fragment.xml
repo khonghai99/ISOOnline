@@ -27,6 +27,7 @@
                 android:hint="Nguyên nhân">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txtReason"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="top"
@@ -43,6 +44,7 @@
                 android:hint="Cách khắc phục">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txtSolution"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="top"
@@ -52,18 +54,20 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/text_input_layout"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Tình trạng">
+                android:layout_marginTop="20dp"
+                android:hint="Trạng thái">
 
-                <AutoCompleteTextView
-                    android:id="@+id/dropdown_text"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txtStatus"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:focusable="false" />
-
+                    android:layout_height="match_parent"
+                    android:gravity="top"
+                    android:inputType="textMultiLine"
+                    android:lines="1"
+                    android:overScrollMode="always" />
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
     </ScrollView>

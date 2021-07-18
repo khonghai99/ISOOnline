@@ -1,6 +1,7 @@
 package com.bkav.isoonline.models;
 
 import com.bkav.isoonline.Controller.JDBCController;
+import com.bkav.isoonline.Session.Golobal;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -64,7 +65,7 @@ public class TroubleModel {
                 "left join V3ProblemGroup as g on p.ProblemGroupID = g.ID\n" +
                 "left join V3ProblemResidentAgency as r on p.ResidentAgencyID = r.ID\n" +
                 "where \n" +
-                "(u.HumanEmployeeID = 1 or p.Receiver = 1)\n" +
+                "(u.HumanEmployeeID =" + Golobal.getIdUser() +" or p.Receiver = " + Golobal.getIdUser() +")\n" +
                 "and (p.IsDelete = 0 or p.IsDelete is null)";
 
         List<Trouble> list = new ArrayList<>();
@@ -79,7 +80,7 @@ public class TroubleModel {
                 dateCreate = date1[2] + "/" + date1[1] + "/" + date1[0];
             }
             //list.add(new Trouble(rs.getString("Name"),rs.getString("ProblemEmergencyName"),dateCreate));
-            list.add(new Trouble(rs.getString("Name"),rs.getString("ProblemEmergencyName"),rs.getString("ProblemTypeName"),rs.getString("CriticalLevelName"),rs.getString("ProblemGroupName"),rs.getString("Description"),dateCreate,rs.getString("Reporter"),rs.getString("ContactNumber"),rs.getString("ReporterEmail"),rs.getString("Receiver"),rs.getString("ResidentAgencyName")));
+            list.add(new Trouble(rs.getString("Name"),rs.getString("ProblemEmergencyName"),rs.getString("ProblemTypeName"),rs.getString("CriticalLevelName"),rs.getString("ProblemGroupName"),rs.getString("Description"),dateCreate,rs.getString("Reporter"),rs.getString("ContactNumber"),rs.getString("ReporterEmail"),rs.getString("Receiver"),rs.getString("ResidentAgencyName"),rs.getString("ProblemStatusName")));
 
         }
         connection.close();

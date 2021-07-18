@@ -62,21 +62,11 @@
                     android:text="Mức độ khẩn cấp: "
                     android:textSize="16sp" />
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/text_input_layout_3"
+                <EditText
+                    android:id="@+id/emergency_txt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:endIconMode="dropdown_menu"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <AutoCompleteTextView
-                        android:id="@+id/dropdown_text_3"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-
-                </com.google.android.material.textfield.TextInputLayout>
+                    android:textSize="16sp" />
 
             </LinearLayout>
 
@@ -91,21 +81,11 @@
                     android:text="Mức độ nghiêm trọng: "
                     android:textSize="16sp" />
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/text_input_layout_4"
+                <EditText
+                    android:id="@+id/critical_txt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:endIconMode="dropdown_menu"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <AutoCompleteTextView
-                        android:id="@+id/dropdown_text_4"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-
-                </com.google.android.material.textfield.TextInputLayout>
+                    android:textSize="16sp" />
 
             </LinearLayout>
 
@@ -120,21 +100,11 @@
                     android:text="Loại sự cố: "
                     android:textSize="16sp" />
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/text_input_layout_5"
+                <EditText
+                    android:id="@+id/type_txt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:endIconMode="dropdown_menu"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <AutoCompleteTextView
-                        android:id="@+id/dropdown_text_5"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-
-                </com.google.android.material.textfield.TextInputLayout>
+                    android:textSize="16sp" />
 
             </LinearLayout>
             <LinearLayout
@@ -148,21 +118,11 @@
                     android:text="Nhóm sự cố: "
                     android:textSize="16sp" />
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/text_input_layout_6"
+                <EditText
+                    android:id="@+id/group_txt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:endIconMode="dropdown_menu"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <AutoCompleteTextView
-                        android:id="@+id/dropdown_text_6"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-
-                </com.google.android.material.textfield.TextInputLayout>
+                    android:textSize="16sp" />
 
             </LinearLayout>
             <LinearLayout
@@ -260,6 +220,26 @@
                         android:padding="10dip" />
                 </TableRow>
 
+                <TableRow>
+                    <TextView
+                        android:text="3 Cây"
+                        android:gravity="center"
+                        android:padding="8dip" />
+                    <TextView
+                        android:text="Khải bịp"
+                        android:gravity="center"
+                        android:padding="8dip" />
+                </TableRow>
+                <TableRow>
+                    <TextView
+                        android:text="3 Cây"
+                        android:gravity="center"
+                        android:padding="8dip" />
+                    <TextView
+                        android:text="Khải bịp"
+                        android:gravity="center"
+                        android:padding="8dip" />
+                </TableRow>
                 <TableRow>
                     <TextView
                         android:text="3 Cây"
