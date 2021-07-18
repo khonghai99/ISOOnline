@@ -15,4 +15,6 @@
     <color name="color_fab_add">#FFFFFF</color>
     <color name="color_background_fab_add">#FF5900</color>
 
+    <color name="yellow">#FFEB3B</color>
+
 </resources>

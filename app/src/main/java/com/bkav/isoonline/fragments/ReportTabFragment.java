@@ -1,9 +1,15 @@
 package com.bkav.isoonline.fragments;
 
+import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -35,7 +41,7 @@ public class ReportTabFragment extends Fragment {
         fabAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                openDialog(Gravity.CENTER);
             }
         });
         mRecyclerViewReport = view.findViewById(R.id.recycler_list_report);
@@ -44,6 +50,23 @@ public class ReportTabFragment extends Fragment {
         mRecyclerViewReport.setLayoutManager(linearLayoutManager);
         setAnimation(R.anim.left_to_right);
         return view;
+    }
+
+    private void openDialog(int gravity) {
+        final Dialog dialog = new Dialog(getContext());
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.dialog_edit_add);
+        Window window = dialog.getWindow();
+        if (window == null){
+            return;
+        }
+        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        WindowManager.LayoutParams winLayoutParams = window.getAttributes();
+        winLayoutParams.gravity = gravity;
+        window.setAttributes(winLayoutParams);
+
+        dialog.show();
     }
 
     private List<Report> getListReport() {
