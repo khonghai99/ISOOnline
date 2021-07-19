@@ -23,8 +23,12 @@ import com.bkav.isoonline.adapters.ReportAdapter;
 import com.bkav.isoonline.adapters.TroubleAdapter;
 import com.bkav.isoonline.models.Report;
 import com.bkav.isoonline.models.Report;
+import com.bkav.isoonline.models.ReportModel;
+import com.bkav.isoonline.models.TroubleModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,10 +49,22 @@ public class ReportTabFragment extends Fragment {
             }
         });
         mRecyclerViewReport = view.findViewById(R.id.recycler_list_report);
-        mReportAdapter = new ReportAdapter(getListReport());
+        try {
+            mReportAdapter = new ReportAdapter(getListReport());
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         mRecyclerViewReport.setLayoutManager(linearLayoutManager);
-        setAnimation(R.anim.left_to_right);
+        try {
+            setAnimation(R.anim.left_to_right);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         return view;
     }
 
@@ -69,21 +85,13 @@ public class ReportTabFragment extends Fragment {
         dialog.show();
     }
 
-    private List<Report> getListReport() {
+    private List<Report> getListReport() throws SQLException, ParseException {
         List<Report> Reports = new ArrayList<>();
-        Reports.add(new Report("Report 1", "Khai1", "1/1/2000"));
-        Reports.add(new Report("Report 2", "Khai12", "2/1/2000"));
-        Reports.add(new Report("Report 3", "Khai13", "3/1/2000"));
-        Reports.add(new Report("Report 4", "Khai14", "4/1/2000"));
-        Reports.add(new Report("Report 5", "Khai11", "4/1/2000"));
-        Reports.add(new Report("Report 6", "Khai11", "4/1/2000"));
-        Reports.add(new Report("Report 7", "Khai12", "4/1/2000"));
-        Reports.add(new Report("Report 8", "Khai14", "4/1/2000"));
-        Reports.add(new Report("Report 9", "Khai14", "4/1/2000"));
-        Reports.add(new Report("Report 10", "Khai14", "4/1/2000"));
+        ReportModel model = new ReportModel();
+        Reports = model.getTroublelist();
         return Reports;
     }
-    private void setAnimation(int animResource){
+    private void setAnimation(int animResource) throws SQLException, ParseException {
 //        LayoutAnimationController layoutAnimationController = AnimationUtils.loadLayoutAnimation(this, animResource);
 //        mRecyclerViewTrouble.setLayoutAnimation(layoutAnimationController);
         mRecyclerViewReport.addItemDecoration(new DividerItemDecoration(getContext(),

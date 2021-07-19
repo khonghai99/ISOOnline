@@ -21,7 +21,6 @@ public class ViewDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_detail);
-        Toast.makeText(this, "123", Toast.LENGTH_SHORT).show();
         ViewDetailFragment viewDetailFragment = new ViewDetailFragment();
         getSupportFragmentManager().beginTransaction().add(R.id.main_detail_container, viewDetailFragment).commit();
     }

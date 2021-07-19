@@ -59,9 +59,9 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.ReportView
         if (report == null) {
             return;
         }
-        holder.mNameReport.setText(report.getmNameReport());
-        holder.mPeopleReport.setText(report.getmPeopleReport());
-        holder.mDateCreateReport.setText(report.getmDateCreateReport());
+        holder.mNameReport.setText(report.getContent());
+        holder.mPeopleReport.setText(report.getReporterName());
+        holder.mDateCreateReport.setText(report.getReportDate());
     }
 
     @Override
