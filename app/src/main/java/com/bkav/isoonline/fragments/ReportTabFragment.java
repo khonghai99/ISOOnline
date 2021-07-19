@@ -20,15 +20,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bkav.isoonline.R;
 import com.bkav.isoonline.adapters.ReportAdapter;
-import com.bkav.isoonline.adapters.TroubleAdapter;
-import com.bkav.isoonline.models.Report;
 import com.bkav.isoonline.models.Report;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ReportTabFragment extends Fragment {
+public class ReportTabFragment extends Fragment implements ReportAdapter.IOpenDialog{
     private FloatingActionButton fabAdd;
     private RecyclerView mRecyclerViewReport;
     private ReportAdapter mReportAdapter;
@@ -41,18 +39,18 @@ public class ReportTabFragment extends Fragment {
         fabAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openDialog(Gravity.CENTER);
+                openDialogAddAndEdit(Gravity.CENTER);
             }
         });
         mRecyclerViewReport = view.findViewById(R.id.recycler_list_report);
-        mReportAdapter = new ReportAdapter(getListReport());
+        mReportAdapter = new ReportAdapter(getListReport(), this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         mRecyclerViewReport.setLayoutManager(linearLayoutManager);
         setAnimation(R.anim.left_to_right);
         return view;
     }
 
-    private void openDialog(int gravity) {
+    private void openDialogAddAndEdit(int gravity) {
         final Dialog dialog = new Dialog(getContext());
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.dialog_edit_add);
@@ -90,5 +88,10 @@ public class ReportTabFragment extends Fragment {
                 DividerItemDecoration.VERTICAL));
         mReportAdapter.setData(getListReport());
         mRecyclerViewReport.setAdapter(mReportAdapter);
+    }
+
+    @Override
+    public void openDialog(int position) {
+        openDialogAddAndEdit(Gravity.CENTER);
     }
 }

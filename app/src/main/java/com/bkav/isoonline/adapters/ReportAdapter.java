@@ -16,9 +16,11 @@ import java.util.List;
 public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.ReportViewHolder> {
 
     private List<Report> mListReport;
+    private IOpenDialog mIOpenDialog;
 
-    public ReportAdapter(List<Report> mListReport) {
+    public ReportAdapter(List<Report> mListReport, IOpenDialog iOpenDialog) {
         this.mListReport = mListReport;
+        this.mIOpenDialog = iOpenDialog;
     }
 
     public void setData(List<Report> reports) {
@@ -30,19 +32,20 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.ReportView
         private TextView mNameReport;
         private TextView mPeopleReport;
         private TextView mDateCreateReport;
-        private TroubleAdapter.OnClickTroubleListener mOnClickTroubleListener;
+        private IOpenDialog mIOpenDialog;
 
-        public ReportViewHolder(@NonNull View itemView) {
+        public ReportViewHolder(@NonNull View itemView, IOpenDialog iOpenDialog) {
             super(itemView);
             mNameReport = itemView.findViewById(R.id.text_name_report);
             mPeopleReport = itemView.findViewById(R.id.text_people_report);
             mDateCreateReport = itemView.findViewById(R.id.text_date_create);
+            this.mIOpenDialog = iOpenDialog;
             itemView.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
-            mOnClickTroubleListener.onClickTrouble(getAdapterPosition());
+            mIOpenDialog.openDialog(getAdapterPosition());
         }
     }
 
@@ -50,7 +53,7 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.ReportView
     @Override
     public ReportViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_report, parent, false);
-        return new ReportAdapter.ReportViewHolder(view);
+        return new ReportAdapter.ReportViewHolder(view, mIOpenDialog);
     }
 
     @Override
@@ -70,5 +73,9 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.ReportView
             return mListReport.size();
         }
         return 0;
+    }
+
+    public interface IOpenDialog {
+        void openDialog(int position);
     }
 }
